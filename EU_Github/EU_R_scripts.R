@@ -377,7 +377,6 @@ for (i in seq_along(ids)) {
 #************************************************************************Script - 4****************************************************************************************************************
 #For cross-checking with Methodology - A and Methodology - B
 
-
 libraries = c( "XML","robotstxt", "tidyft","data.table", "DBI", "httr", "RSQLite","tidyverse","rvest","stringr","robotstxt","selectr","xml2","dplyr","forcats","magrittr","tidyr","ggplot2","lubridate","tibble","purrr","googleLanguageR","cld2")
 lapply(libraries, require, character.only = TRUE)
 counter=0
