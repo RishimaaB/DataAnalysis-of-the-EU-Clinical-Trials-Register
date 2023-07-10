@@ -1,6 +1,5 @@
-#***************************************************Script - 1**********************************************************************************************
+#**********************************************************************Script - 1**************************************************************************************************************
 #Downloading clinical trial records from the EU-CTR registry
-
 
 libraries = c( "XML","robotstxt", "tidyft","data.table", "DBI", "httr", "RSQLite","tidyverse","rvest","stringr","robotstxt","selectr","xml2","dplyr","forcats","magrittr","tidyr","ggplot2","lubridate","tibble","purrr","googleLanguageR","cld2")
 lapply(libraries, require, character.only = TRUE)
@@ -13,8 +12,6 @@ for (page_result in seq(from=1, to= 2142)) {
   ad <- page %>% html_nodes(".even+ tr a") %>% html_attr("href") %>% paste("https://www.clinicaltrialsregister.eu",., sep="")
   ad <- data.frame(ad)
   write.table(ad, "eur_links.csv", sep = ",",row.names = FALSE, col.names = !file.exists("eur_links.csv"), append = T)
-  
-  
   counter = counter + 1
   print(paste("Count = ", counter,"ID = ",page_result))
   
@@ -32,16 +29,13 @@ for (i in seq_along(ids)) {
                           downloaded_time = time_of_download,
                           URL = as.character(official_url))
   write.table(time_stamp, "time_stamp_european.csv", sep = ",",row.names = FALSE, col.names = !file.exists("time_stamp_european.csv"), append = T)
-  
-  
-  
   counter = counter + 1
   print(paste("Count = ", counter,"ID = ",ids[i]))
   
 }
 
 
-#*****************************************************Script - 2********************************************************************************************
+#*************************************************************************Script - 2************************************************************************************************************
 #Web scraped all the downloaded records for the keyword 'India' or 'CTRI'
 
 libraries = c( "XML", "tidyft","data.table", "DBI", "httr", "RSQLite","tidyverse","rvest","stringr","robotstxt","selectr","xml2","dplyr","forcats","magrittr","tidyr","ggplot2","lubridate","tibble","purrr","googleLanguageR","cld2")
@@ -220,7 +214,7 @@ for (i in seq_along(ids)) {
 }
 
 
-#********************************************************Script - 3***************************************************************************************
+#****************************************************************************Script - 3*********************************************************************************************************
 #Web-scraped from 7315 records which have "India" keyword in "General Information on trial" field
 
 libraries = c( "XML", "tidyft","data.table", "DBI", "httr", "RSQLite","tidyverse","rvest","stringr","robotstxt","selectr","xml2","dplyr","forcats","magrittr","tidyr","ggplot2","lubridate","tibble","purrr","googleLanguageR","cld2")
@@ -372,22 +366,15 @@ for (i in seq_along(ids)) {
     } else if (length_info_labels == 99) {
       result <- new_function2(".tricell:nth-child(89) .third , .tricell:nth-child(88) .third , .tricell:nth-child(87) .third , .tricell:nth-child(86) .third , .tricell:nth-child(85) .third , .tricell:nth-child(84) .third , .tricell:nth-child(82) .third , .tricell:nth-child(81) .third , .tricell:nth-child(80) .third , .tricell:nth-child(79) .third , .tricell:nth-child(78) .third , .tricell:nth-child(76) .third , .tricell:nth-child(75) .third , .tricell:nth-child(74) .third , .tricell:nth-child(73) .third , .tricell:nth-child(71) .third , .tricell:nth-child(72) .third , .tricell:nth-child(70) .third , .tricell:nth-child(69) .third , .tricell:nth-child(68) .third")
     }
-    
-    
-    
-    
-    
-    
-    
-    
     counter = counter + 1
     print(paste("Count = ", counter,"ID = ",ids[i]))
     
     
-  }}
+  }
+}
 
 
-#**************************************************Script - 4*********************************************************************************************
+#************************************************************************Script - 4****************************************************************************************************************
 #For cross-checking with Methodology - A and Methodology - B
 
 
