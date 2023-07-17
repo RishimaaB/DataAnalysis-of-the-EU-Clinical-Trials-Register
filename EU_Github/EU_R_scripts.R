@@ -1,41 +1,4 @@
-#**********************************************************************Script - 1**************************************************************************************************************
-#Downloading clinical trial records from the EU-CTR registry
-
-libraries = c( "XML","robotstxt", "tidyft","data.table", "DBI", "httr", "RSQLite","tidyverse","rvest","stringr","robotstxt","selectr","xml2","dplyr","forcats","magrittr","tidyr","ggplot2","lubridate","tibble","purrr","googleLanguageR","cld2")
-lapply(libraries, require, character.only = TRUE)
-counter=0
-ids <- c(1:112032)
-
-for (page_result in seq(from=1, to= 2142)) {
-  link <- url(paste0("https://www.clinicaltrialsregister.eu/ctr-search/search?query=&page=",i)) 
-  page <- read_html(link)
-  ad <- page %>% html_nodes(".even+ tr a") %>% html_attr("href") %>% paste("https://www.clinicaltrialsregister.eu",., sep="")
-  ad <- data.frame(ad)
-  write.table(ad, "eur_links.csv", sep = ",",row.names = FALSE, col.names = !file.exists("eur_links.csv"), append = T)
-  counter = counter + 1
-  print(paste("Count = ", counter,"ID = ",page_result))
-  
-  
-}
-
-eur_page_links <- data.frame()
-eur_page_links <- read.csv("eur_links.csv")
-for (i in seq_along(ids)) {
-  official_url = eur_page_links[ids[i],"ad"] 
-  output_file=paste0("european_page",ids[i],".html")
-  download.file(official_url, destfile = output_file, quiet = TRUE)
-  time_of_download = as.character(timestamp())
-  time_stamp = data.frame(Trial_ID = as.character(ids[i]),
-                          downloaded_time = time_of_download,
-                          URL = as.character(official_url))
-  write.table(time_stamp, "time_stamp_european.csv", sep = ",",row.names = FALSE, col.names = !file.exists("time_stamp_european.csv"), append = T)
-  counter = counter + 1
-  print(paste("Count = ", counter,"ID = ",ids[i]))
-  
-}
-
-
-#*************************************************************************Script - 2************************************************************************************************************
+#*************************************************************************Script - 1************************************************************************************************************
 #Web scraped all the downloaded records for the keyword 'India' or 'CTRI'
 
 libraries = c( "XML", "tidyft","data.table", "DBI", "httr", "RSQLite","tidyverse","rvest","stringr","robotstxt","selectr","xml2","dplyr","forcats","magrittr","tidyr","ggplot2","lubridate","tibble","purrr","googleLanguageR","cld2")
@@ -214,7 +177,7 @@ for (i in seq_along(ids)) {
 }
 
 
-#****************************************************************************Script - 3*********************************************************************************************************
+#****************************************************************************Script - 2*********************************************************************************************************
 #Web-scraped from 7315 records which have "India" keyword in "General Information on trial" field
 
 libraries = c( "XML", "tidyft","data.table", "DBI", "httr", "RSQLite","tidyverse","rvest","stringr","robotstxt","selectr","xml2","dplyr","forcats","magrittr","tidyr","ggplot2","lubridate","tibble","purrr","googleLanguageR","cld2")
@@ -374,7 +337,7 @@ for (i in seq_along(ids)) {
 }
 
 
-#************************************************************************Script - 4****************************************************************************************************************
+#************************************************************************Script - 3****************************************************************************************************************
 #For cross-checking with Methodology - A and Methodology - B
 
 libraries = c( "XML","robotstxt", "tidyft","data.table", "DBI", "httr", "RSQLite","tidyverse","rvest","stringr","robotstxt","selectr","xml2","dplyr","forcats","magrittr","tidyr","ggplot2","lubridate","tibble","purrr","googleLanguageR","cld2")
